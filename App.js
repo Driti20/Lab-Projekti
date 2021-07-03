@@ -1,27 +1,38 @@
-import React from 'react';
-import Navbar from './components/Navbar';
-import { BrowserRouter as Router,Switch, Route } from 'react-router-dom';
+import logo from './logo.svg';
 import './App.css';
-import Kryefaqja from './components/pages/Kryefaqja';
-import Produktet from './components/pages/Produktet';
-import Sherbimet from './components/pages/Sherbimet';
-import Regjistrohu from './components/pages/Regjistrohu';
+
+import {Home} from './Home';
+import {Individe} from './Individe';
+import {Klienti} from './Klienti';
+import {Navigation} from './Navigation';
+
+import {BrowserRouter, Route, Switch} from 'react-router-dom';
 
 function App() {
   return (
-    <>
-    <Router>
-      <Navbar />
+    <BrowserRouter>
+    <div className="container">
+      <h3 className="m-3 d-flex justify-content-center">
+        Blej sigurim per
+      </h3>
+
+      <Navigation/>
+
       <Switch>
-        <Route path='/' exact component={Kryefaqja} />
-        <Route path='/sherbimet'  component={Sherbimet} />
-        <Route path='/produktet'  component={Produktet} />
-        <Route path='/regjistrohu' component={Regjistrohu} />
+        <Route path='/' component={Home} exact/>
+        <Route path='/Individe' component={Individe} />
+        <Route path='/Klienti' component={Klienti} />
+      
+      
       </Switch>
-    </Router>
-    </>
+    
+    
+    
+    
+    
+    </div>
+    </BrowserRouter>
   );
 }
 
 export default App;
- 
