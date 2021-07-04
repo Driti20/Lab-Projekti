@@ -1,30 +1,22 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import styled from "styled-components";
+import { AccountBox } from "./components/accountBox";
 
-import {Home} from './Home';
-import {Qyteti} from './Qyteti';
-import {Navigation} from './Navigation';
-
-import {BrowserRouter, Route, Switch} from 'react-router-dom';
-
+const AppContainer = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
 
 function App() {
   return (
-    <BrowserRouter>
-    <div className="container">
-     <h3 className="m-3 d-flex justify-content-center">
-       React JS Tutorial
-     </h3>
-
-     <Navigation/>
-
-     <Switch>
-       <Route path='/' component={Home} exact/>
-       <Route path='/Qyteti' component={Qyteti}/>
-     </Switch>
-    </div>
-    </BrowserRouter>
+    <AppContainer>
+      <AccountBox />
+    </AppContainer>
   );
-} 
+}
 
 export default App;
