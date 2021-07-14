@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { createContext, useState } from "react";
 import styled from "styled-components";
-import { LoginForm } from "./loginForm";
 import { motion } from "framer-motion";
-import { AccountContext } from "./accountContext";
+import { LoginForm } from "./loginForm";
+import { AccountContext } from "./context";
 import { SignupForm } from "./signupForm";
+import { MutedLink } from "./common";
 
 const BoxContainer = styled.div`
   width: 280px;
@@ -12,14 +13,14 @@ const BoxContainer = styled.div`
   flex-direction: column;
   border-radius: 19px;
   background-color: #fff;
-  box-shadow: 0 0 2px rgba(15, 15, 15, 0.28);
+  box-shadow: 0px 0px 2.7px rgba(15, 15, 15, 0.28);
   position: relative;
   overflow: hidden;
 `;
 
 const TopContainer = styled.div`
   width: 100%;
-  height: 250px;
+  height: 255px;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -28,49 +29,51 @@ const TopContainer = styled.div`
 `;
 
 const BackDrop = styled(motion.div)`
+  position: absolute;
   width: 160%;
   height: 550px;
-  position: absolute;
-  display: flex;
-  flex-direction: column;
   border-radius: 50%;
   transform: rotate(60deg);
   top: -290px;
   left: -70px;
-  background: rgb(2,0,36); 
-  background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(93,9,121,1) 35%, rgba(0,212,255,1) 100%);
-  
+  background: rgba(241, 196, 15, 1);
+  background: linear-gradient(
+    58deg,
+    rgba(241, 196, 15, 1) 20%,
+    rgba(243, 172, 18, 1) 100%
+  );
 `;
 
 const HeaderContainer = styled.div`
-  width: 100%;
   display: flex;
   flex-direction: column;
+  margin-bottom: 10px;
 `;
 
 const HeaderText = styled.h2`
-  font-size: 30px;
   font-weight: 600;
-  line-height: 1.24;
   color: #fff;
   z-index: 10;
   margin: 0;
+  font-size: 30px;
+  line-height: 1.24;
 `;
 
 const SmallText = styled.h5`
-  color: #fff;
   font-weight: 500;
-  font-size: 11px;
+  color: #fff;
   z-index: 10;
   margin: 0;
-  margin-top: 7px;
+  font-size: 13px;
+  line-height: 1.24;
 `;
 
 const InnerContainer = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-  padding: 0 1.8em;
+  align-items: center;
+  padding: 0 1.7em;
 `;
 
 const backdropVariants = {
@@ -98,52 +101,64 @@ export function AccountBox(props) {
   const [isExpanded, setExpanded] = useState(false);
   const [active, setActive] = useState("signin");
 
-  const playExpandingAnimation = () => {
+  const playExpandingEffect = () => {
     setExpanded(true);
+    /*
+      Collapse it after short amount of time
+      To Finish transition 
+    */
     setTimeout(() => {
       setExpanded(false);
     }, expandingTransition.duration * 1000 - 1500);
   };
 
+  const switchActive = (active) => {
+    setTimeout(() => setActive(active), 400);
+  };
+
   const switchToSignup = () => {
-    playExpandingAnimation();
-    setTimeout(() => {
-      setActive("signup");
-    }, 400);
+    playExpandingEffect();
+    switchActive("signup");
   };
 
   const switchToSignin = () => {
-    playExpandingAnimation();
-    setTimeout(() => {
-      setActive("signin");
-    }, 400);
+    playExpandingEffect();
+    switchActive("signin");
   };
 
-  const contextValue = { switchToSignup, switchToSignin };
+  const contextValue = {
+    switchToSignup,
+    switchToSignin,
+    playExpandingEffect,
+  };
 
   return (
     <AccountContext.Provider value={contextValue}>
       <BoxContainer>
         <TopContainer>
           <BackDrop
-            initial={false}
-            animate={isExpanded ? "expanded" : "collapsed"}
             variants={backdropVariants}
             transition={expandingTransition}
+            initial={false}
+            animate={isExpanded ? "expanded" : "collapsed"}
           />
           {active === "signin" && (
-            <HeaderContainer>
-            
-              <HeaderText>Hyni</HeaderText>
-              <SmallText>Ju lutem hyni per te vazhduar!</SmallText>
-            </HeaderContainer>
+            <>
+              <HeaderContainer>
+                <HeaderText>Welcome</HeaderText>
+                <HeaderText>Back</HeaderText>
+              </HeaderContainer>
+              <SmallText>Please sign-in to continue!</SmallText>
+            </>
           )}
           {active === "signup" && (
-            <HeaderContainer>
-              <HeaderText>Krijo</HeaderText>
-              <HeaderText>Llogari</HeaderText>
-              <SmallText>Ju lutem regjistrohuni per te vazhduar!</SmallText>
-            </HeaderContainer>
+            <>
+              <HeaderContainer>
+                <HeaderText>Create </HeaderText>
+                <HeaderText>Account</HeaderText>
+              </HeaderContainer>
+              <SmallText>Please sign-up to continue!</SmallText>
+            </>
           )}
         </TopContainer>
         <InnerContainer>
