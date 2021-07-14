@@ -9,7 +9,7 @@ export class AddIndModal extends Component{
 
     handleSubmit(event){
         event.preventDefault();
-        fetch(process.env.REACT_APP_API+'individe',{
+        fetch(process.env.REACT_APP_API+'ngjyrat',{
             method:'POST',
             headers:{
                 'Accept':'application/json',
@@ -17,7 +17,7 @@ export class AddIndModal extends Component{
             },
             body:JSON.stringify({
                
-                IndivideName:event.target.IndivideName.value
+                NgjyraLloji:event.target.NgjyraLloji.value
         })
     })
     .then(res=>res.json())
@@ -41,7 +41,7 @@ centered
 >
     <Modal.Header clooseButton>
         <Modal.Title id="contained-modal-title-vcenter">
-            Add Individe
+            Shto Ngjyren
         </Modal.Title>
     </Modal.Header>
     <Modal.Body>
@@ -50,15 +50,15 @@ centered
         <Row>
             <Col sm={6}>
                 <Form onSubmit={this.handleSubmit}>
-                    <Form.Group cotrolId="IndivideName">
-                        <Form.Label>IndivideName</Form.Label>
-                        <Form.Control type="text" name="IndivideName" required
-                        placeholder="IndivideName"/>
+                    <Form.Group cotrolId="NgjyraLloji">
+                        <Form.Label>NgjyraLloji</Form.Label>
+                        <Form.Control type="text" name="NgjyraLloji" required
+                        placeholder="NgjyraLloji"/>
                     </Form.Group>
 
                     <Form.Group>
                         <Button variant="primary" type="submit">
-                            Shto Individe
+                            Shto Ngjyren
                         </Button>
                     </Form.Group>
                 </Form>

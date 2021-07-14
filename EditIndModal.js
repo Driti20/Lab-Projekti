@@ -9,15 +9,15 @@ export class EditIndModal extends Component{
 
     handleSubmit(event){
         event.preventDefault();
-        fetch(process.env.REACT_APP_API+'individe',{
+        fetch(process.env.REACT_APP_API+'ngjyrat',{
             method:'PUT',
             headers:{
                 'Accept':'application/json',
                 'Content-Type':'application/json'
             },
             body:JSON.stringify({
-                IndivideId:event.target.IndivideId.value,
-                IndivideName:event.target.IndivideName.value
+                NgjyraID:event.target.NgjyraID.value,
+                NgjyraLloji:event.target.NgjyraLloji.value
         })
     })
     .then(res=>res.json())
@@ -50,24 +50,24 @@ centered
         <Row>
             <Col sm={6}>
                 <Form onSubmit={this.handleSubmit}>
-                <Form.Group cotrolId="IndivideId">
-                        <Form.Label>IndivideId</Form.Label>
-                        <Form.Control type="text" name="IndivideId" required
+                <Form.Group cotrolId="NgjyraID">
+                        <Form.Label>NgjyraID</Form.Label>
+                        <Form.Control type="text" name="NgjyraID" required
                         disabled
                         defaultValue={this.props.indid}
-                        placeholder="IndivideName"/>
+                        placeholder="NgjyraLloji"/>
                     </Form.Group>
 
-                    <Form.Group cotrolId="IndivideName">
-                        <Form.Label>IndivideName</Form.Label>
-                        <Form.Control type="text" name="IndivideName" required
+                    <Form.Group cotrolId="NgjyraLloji">
+                        <Form.Label>NgjyraLloji</Form.Label>
+                        <Form.Control type="text" name="NgjyraLloji" required
                         defaultValue={this.props.indname}
-                        placeholder="IndivideName"/>
+                        placeholder="NgjyraLloji"/>
                     </Form.Group>
 
                     <Form.Group>
                         <Button variant="primary" type="submit">
-                            Update Individe
+                            Update Ngjyren
                         </Button>
                     </Form.Group>
                 </Form>
